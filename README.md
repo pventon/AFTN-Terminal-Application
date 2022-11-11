@@ -2,6 +2,7 @@
 <p>This <a href="https://github.com/">GitHub</a> repository contains an <b>AFTN Terminal Application</b>; this application is a standalone client that runs as a GUI application. The application is cross-platform compatible running on both Linux, Mac OSX and Windows platforms.
 </p>
 <p>The <b>AFTN Terminal Application</b> is implemented using Python version 3.10.7. A more recent version of Python must be used in order to support <b>switch</b> statements used in the source code.
+The GUI has been written using the Tkinter library.
 </p>
 <p>An acronym list is provided at the end of this readme for readers unfamiliar with ATC acronyms.
 </p>
@@ -16,6 +17,9 @@
 </p>
 <p>Errors can be double-clicked to highlight erroneous fields in a message making it easy to locate and fix message errors. If multiple errors are detected, all erroneous fields can be simultaneously highlighted.</p>
 <img src="Images/ApplicationMainWindow.png" alt="ApplicationMainWindow" title="AFTN Main Application Window">
+<p>The extracted sequence for a flight can be displayed in a dedicated window as shown below.
+</p>
+<img src="Images/ErsWindow.png" alt="ErsWindow" title="Extracted Route Window">
 <p>A message editor is provided to edit messages received and / or creating new messages. A simple message template is provided when creating nd editing new message.
 </p>
 <img src="Images/MessageEditorWindow.png" alt="MessageEditorWindow" title="Message Editor Window">
