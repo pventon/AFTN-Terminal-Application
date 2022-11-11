@@ -16,9 +16,13 @@
 <h1>Overview</h1>
 <p>The <b>AFTN Terminal Application</b> processes ICAO ATS messages. The application is structured similar to an email client with a message tree in a left pane for organising messages, a list of messages when a message folder is selected in the tree pane and a message display area that contains the content of a selected message along with any associated error messages.
 </p>
+<img src="Images/ApplicationMainWindow.png" alt="ApplicationMainWindow" title="AFTN Main Application Window">
 <p>A message editor is provided to edit messages received and / or creating new messages. A simple message template is provided when creating nd editing new message.
 </p>
+<img src="Images/MessageEditorWindow.png" alt="MessageEditorWindow" title="Message Editor Window">
 <p>All ICAO defined ATS messages are support and templates for all supported messages are provided.</p>
+<img src="Images/MessageEditorWithTemplate.png" alt="MessageEditorWithTemplate" title="Message Editor Window with FPL Template">
+
 <h2>Current Functionality</h2>
 <p>More documentation will follow shortly; this is an initial release and documentation will follow soon.
 </p>
