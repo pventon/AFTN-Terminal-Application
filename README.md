@@ -5,22 +5,21 @@
 </p>
 <p>An acronym list is provided at the end of this readme for readers unfamiliar with ATC acronyms.
 </p>
-<p>The open source <a href="https://github.com/">GitHub</a> repository for the <b>AFTN Terminal Application</b> can be found <a href="https://github.com/pventon/AFTN-Terminal-Application">here</a>.
-</p>
 <p>The <b>AFTN Terminal Application</b> uses a standalone <b>ICAO ATS and OLDI Message Parser</b> and <b>ICAO Field 15 Parser</b> that are both available as open source <a href="https://github.com/">GitHub</a> projects that can be found <a href="https://github.com/pventon/ICAO-ATS-and-OLDI-Message-Parser">here for the ICAO Message Parser</a> and <a href="https://github.com/pventon/ICAO-F15-Parser">here for the F15 Parser</a>.
 </p>
 <p>All software for the <b>AFTN Terminal Application</b>, <b>ICAO ATS and OLDI Message Parser</b> and <b>ICAO Field 15 Parser</b> <a href="https://github.com/">GitHub</a> repositories have been written by Peter Venton (user <a href="https://github.com/pventon">pventon</a> on <a href="https://github.com/">GitHub</a>).
 </p>
-<p>All development has been carried out on a Linux Mint platform and has <b><i>NOT</i></b>been tested on either Windows or Max OSX platforms. The software has been written with cross-platform support in mind.</p>
+<p>All development has been carried out on a Linux Mint platform and has <b><i>NOT</i></b> been tested on either Windows or Mac OSX platforms. The software has been written with cross-platform support in mind.</p>
 
 <h1>Overview</h1>
 <p>The <b>AFTN Terminal Application</b> processes ICAO ATS messages. The application is structured similar to an email client with a message tree in a left pane for organising messages, a list of messages when a message folder is selected in the tree pane and a message display area that contains the content of a selected message along with any associated error messages.
 </p>
+<p>Errors can be double-clicked to highlight erroneous fields in a message making it easy to locate and fix message errors. If multiple errors are detected, all erroneous fields can be simultaneously highlighted.</p>
 <img src="Images/ApplicationMainWindow.png" alt="ApplicationMainWindow" title="AFTN Main Application Window">
 <p>A message editor is provided to edit messages received and / or creating new messages. A simple message template is provided when creating nd editing new message.
 </p>
 <img src="Images/MessageEditorWindow.png" alt="MessageEditorWindow" title="Message Editor Window">
-<p>All ICAO defined ATS messages are support and templates for all supported messages are provided.</p>
+<p>All ICAO defined ATS messages are supported and templates for all supported messages are provided.</p>
 <img src="Images/MessageEditorWithTemplate.png" alt="MessageEditorWithTemplate" title="Message Editor Window with FPL Template">
 
 <h2>Current Functionality</h2>
@@ -36,7 +35,6 @@
 <ul>
 <li>This readme has to be updated</li>
 <li>Full documentation has to be provided, this includes a User Manual</li>
-<li>A description how to start the application has to be provided</li>
 <li>A comprehensive toolbar has to be implemented, (the toolbar is present but empty)</li>
 <li>Last but not least, the application needs to have an AFTN network interface protocol handler written</li>
 </ul>
@@ -49,7 +47,7 @@
 <h1>AFTN Terminal Application Usage</h1>
 <p>There is a file called <b><i>RunAftnTerminal</i></b> in the project root directory that is the application entry point.
 </p>
-<p>In this file there is a working directory path specified that must be set to a location directory; this directory will be used to store all messages processed by the application. Do not put other files in the working directory or any of its subdirectories.</p>
+<p>In this file there is a working directory path specified that must be set to a local directory; this directory will be used to store all messages processed by the application. Do not put other files in the working directory or any of its subdirectories.</p>
 <p>Each message is stored as an XML file and these files are placed in the working directory and its subdirectories.</p>
 <p>The project was written using the PyCharm IDE; a 'test' working directory is provided as part of the <a href="https://github.com/">GitHub</a> repository in the directory shown in the usage code example shown below. This directory contains a number of ATS messages that can be used to evaluate the application functionality.</p>
 <pre><code>
