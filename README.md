@@ -17,13 +17,15 @@ The GUI has been written using the Tkinter library.
 </p>
 <p>Errors can be double-clicked to highlight erroneous fields in a message making it easy to locate and fix message errors. If multiple errors are detected, all erroneous fields can be simultaneously highlighted.</p>
 <img src="Images/ApplicationMainWindow.png" alt="ApplicationMainWindow" title="AFTN Main Application Window">
-<p>The extracted sequence for a flight can be displayed in a dedicated window as shown below.
+<p>The Extracted Route Sequence for a flight can be displayed in a dedicated window as shown below.
 </p>
 <img src="Images/ErsWindow.png" alt="ErsWindow" title="Extracted Route Window">
-<p>A message editor is provided to edit messages received and / or creating new messages. A simple message template is provided when creating nd editing new message.
+<p>A message editor is provided to edit received messages and / or creating new messages.
 </p>
 <img src="Images/MessageEditorWindow.png" alt="MessageEditorWindow" title="Message Editor Window">
-<p>All ICAO defined ATS messages are supported and templates for all supported messages are provided.</p>
+<p> A simple message template is provided when creating and editing new messages.
+All ICAO defined ATS messages are supported and templates for all supported messages are provided.
+</p>
 <img src="Images/MessageEditorWithTemplate.png" alt="MessageEditorWithTemplate" title="Message Editor Window with FPL Template">
 
 <h2>Current Functionality</h2>
