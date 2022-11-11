@@ -9,7 +9,7 @@ from AFTN_Terminal.ReadXml import ReadXml
 class ParseMessageTests(unittest.TestCase):
     fpr: FlightPlanRecord = None
     pm = None
-    file_path = "/home/ls/PycharmProjects/ICAO-Message-Parser/UnitTests/FlightPlanRecord_for_testing.xml"
+    file_path = "/home/ls/PycharmProjects/AFTN-Terminal-Application/UnitTests/FlightPlanRecord_for_testing.xml"
 
     def tearDown(self) -> None:
         # self.fpr = None
@@ -275,11 +275,11 @@ class ParseMessageTests(unittest.TestCase):
     def test_read_xml_01(self):
         rx = ReadXml(self.file_path)
         # Test modification time
-        self.assertEqual("Mon Nov  7 09:55:24 2022", rx.get_modification_time())
+        self.assertEqual("2022-11-07 09:55:24", rx.get_modification_time())
         self.assertEqual("1667832924.69", "{0:>.2f}".format(rx.get_modification_time_seconds()))
         # Test creation time
-        self.assertEqual("Mon Nov  7 09:55:24 2022", rx.get_creation_time())
-        self.assertEqual("1667832924.69", "{0:>.2f}".format(rx.get_creation_time_seconds()))
+        self.assertEqual("2022-11-07 09:55:24", rx.get_creation_time())
+        self.assertEqual("1668132724.78", "{0:>.2f}".format(rx.get_creation_time_seconds()))
 
     def test_read_xml_02(self):
         rx = ReadXml(self.file_path)

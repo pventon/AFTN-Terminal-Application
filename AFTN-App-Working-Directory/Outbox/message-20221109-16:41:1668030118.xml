@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<flight_plan_record>
+   <derived_flight_rules>IFR</derived_flight_rules>
+   <message_type>ATS</message_type>
+   <original_message>FF ADDRESSA
+111529 ORIGINAT
+(FPL-F7-IS
+-B737/M-S/C
+-LOWW0811
+-N0450F350 GGG HHH
+-EGLL0234
+-0)
+</original_message>
+   <message_header>FF ADDRESSA
+111529 ORIGINAT
+</message_header>
+   <message_body>(FPL-F7-IS
+-B737/M-S/C
+-LOWW0811
+-N0450F350 GGG HHH
+-EGLL0234
+-0)
+</message_body>
+   <adjacent_unit_sender>DEFAULT</adjacent_unit_sender>
+   <adjacent_unit_receiver>DEFAULT</adjacent_unit_receiver>
+   <icao_fields>
+      <field_record id="PRIORITY_INDICATOR" start_index="0" end_index="2">FF
+         <subfield_record id="PRIORITY_INDICATOR" start_index="0" end_index="2">FF</subfield_record>
+      </field_record>
+      <field_record id="ADDRESS" start_index="3" end_index="11">ADDRESSA 
+         <subfield_record id="ADDRESS1" start_index="3" end_index="11">ADDRESSA</subfield_record>
+      </field_record>
+      <field_record id="FILING_TIME" start_index="12" end_index="18">111529
+         <subfield_record id="FILING_TIME" start_index="12" end_index="18">111529</subfield_record>
+      </field_record>
+      <field_record id="ORIGINATOR" start_index="19" end_index="27">ORIGINAT
+         <subfield_record id="ORIGINATOR" start_index="19" end_index="27">ORIGINAT</subfield_record>
+      </field_record>
+      <field_record id="ADADDRESS" start_index="28" end_index="28">
+      </field_record>
+      <field_record id="F3" start_index="29" end_index="32">FPL
+         <subfield_record id="F3a" start_index="29" end_index="32">FPL</subfield_record>
+      </field_record>
+      <field_record id="F7" start_index="33" end_index="35">F7
+         <subfield_record id="F7a" start_index="33" end_index="35">F7</subfield_record>
+      </field_record>
+      <field_record id="F8" start_index="36" end_index="38">IS
+         <subfield_record id="F8a" start_index="36" end_index="37">I</subfield_record>
+         <subfield_record id="F8b" start_index="37" end_index="38">S</subfield_record>
+      </field_record>
+      <field_record id="F9" start_index="40" end_index="46">B737/M
+         <subfield_record id="F9a" start_index="40" end_index="40">00</subfield_record>
+         <subfield_record id="F9b" start_index="40" end_index="44">B737</subfield_record>
+         <subfield_record id="F9bc" start_index="44" end_index="45">/</subfield_record>
+         <subfield_record id="F9c" start_index="45" end_index="46">M</subfield_record>
+      </field_record>
+      <field_record id="F10" start_index="47" end_index="50">S/C
+         <subfield_record id="F10a" start_index="47" end_index="48">S</subfield_record>
+         <subfield_record id="F10ab" start_index="48" end_index="49">/</subfield_record>
+         <subfield_record id="F10b" start_index="49" end_index="50">C</subfield_record>
+      </field_record>
+      <field_record id="F13" start_index="52" end_index="60">LOWW0811
+         <subfield_record id="F13a" start_index="52" end_index="56">LOWW</subfield_record>
+         <subfield_record id="F13b" start_index="56" end_index="60">0811</subfield_record>
+      </field_record>
+      <field_record id="F15" start_index="62" end_index="79">N0450F350 GGG HHH
+      </field_record>
+      <field_record id="F16" start_index="81" end_index="89">EGLL0234
+         <subfield_record id="F16a" start_index="81" end_index="85">EGLL</subfield_record>
+         <subfield_record id="F16b" start_index="85" end_index="89">0234</subfield_record>
+      </field_record>
+      <field_record id="F18" start_index="91" end_index="92">0
+      </field_record>
+   </icao_fields>
+   <ers>
+      <derived_flight_rules>I</derived_flight_rules>
+      <ers_record start_index="62" end_index="62" base_type="TokenBaseType.F15_POINT" sub_type="TokenSubType.F15_SB_PRP_AERO" speed="N0450" speed_si="231.00" altitude="F350" altitude_si="10668.00" bearing="0.00" distance="0.00" flight_rules="IFR" stay_time="0" altitude_cruise_to="" altitude_cruise_to_si="0.00" latitude="0.00" longitude="0.00" break_text="">ADEP</ers_record>
+      <ers_record start_index="72" end_index="75" base_type="TokenBaseType.F15_POINT" sub_type="TokenSubType.F15_SB_PRP" speed="N0450" speed_si="231.00" altitude="F350" altitude_si="10668.00" bearing="0.00" distance="0.00" flight_rules="IFR" stay_time="0" altitude_cruise_to="" altitude_cruise_to_si="0.00" latitude="0.00" longitude="0.00" break_text="">GGG</ers_record>
+      <ers_record start_index="76" end_index="79" base_type="TokenBaseType.F15_POINT" sub_type="TokenSubType.F15_SB_PRP" speed="N0450" speed_si="231.00" altitude="F350" altitude_si="10668.00" bearing="0.00" distance="0.00" flight_rules="IFR" stay_time="0" altitude_cruise_to="" altitude_cruise_to_si="0.00" latitude="0.00" longitude="0.00" break_text="">HHH</ers_record>
+      <ers_record start_index="62" end_index="62" base_type="TokenBaseType.F15_POINT" sub_type="TokenSubType.F15_SB_PRP_AERO" speed="" speed_si="0.00" altitude="" altitude_si="0.00" bearing="0.00" distance="0.00" flight_rules="IFR" stay_time="0" altitude_cruise_to="" altitude_cruise_to_si="0.00" latitude="0.00" longitude="0.00" break_text="">ADES</ers_record>
+   </ers>
+</flight_plan_record>
