@@ -7,11 +7,36 @@ from Configuration.EnumerationConstants import MessageTitles
 
 
 class MessageTextEditorFrame(MessageDisplayFrame):
+    """This class displays a message text editor with the text editor and error messages provided
+    by the base class MessageDisplayFrame; this class adds a status and button bar that displays
+    either a 'Apply' or 'Save' button depending on if an existing message is being edited or
+    a new message is being created."""
+
     is_new: bool = False
+    """A flag indicating if this editor is being opened to create a new message, (True) or 
+    an existing message (False)."""
 
     def __init__(self, parent, is_new, message_title, creation_date, modification_date, app_root_message_path):
         # type: (Tk | Treeview, bool, MessageTitles, str, str, str) -> None
+        """This constructor builds a message text editor with the text editor and error messages provided
+        by the base class MessageDisplayFrame; this constructor adds a status and button bar that displays
+        either a 'Apply' or 'Save' button depending on if an existing message is being edited or
+        a new message is being created.
 
+        :param parent: Handle to a parent window, this will be the tree view in the main application window
+               if a message is being opened via double-click on a tree view leaf/file, or the parent window
+               if opened from the message list.
+        :param is_new: True if this message text editor is being opened to create a new message, False
+               if an existing message is being edited;
+        :param message_title: An enumeration value from the MessageTitles class used to determined the message
+               template when anew message is created.
+        :param creation_date: The creation timestamp of the XML file for the message being edited, or the
+               current date and time if a new message is being created;
+        :param modification_date: The modification timestamp of the XML file for the message being edited,
+               or the current date and time if a new message is being created;
+        :param app_root_message_path: The full absolute working directory path; used to store new messages
+               in the Outbox;
+        """
         # Get a handle to the top level widget
         top_level = Toplevel(parent)
 
@@ -46,20 +71,42 @@ class MessageTextEditorFrame(MessageDisplayFrame):
 
 
 class ButtonFrame(Frame):
+    """This class builds a frame containing the following buttons:
+
+        - 'Close'
+        - 'Save' or 'Apply': (depends on if a new or existing message is being created/edited)
+        - 'Validate'
+    """
     message_text_editor_frame: MessageTextEditorFrame = None
+    """Handle to a the MessageTextEditorFrame that this button frame is displayed in;"""
+
     save_button = None
+    """Handle to the 'Save' button, this is needed so it can be enabled/disabled based on the 
+    the type of message being edited, new or existing. The 'Save' button is enabled when a new
+    message is being edited."""
+
     apply_button = None
+    """Handle to the 'Apply' button, this is needed so it can be enabled/disabled based on the 
+    the type of message being edited, new or existing. The 'Apply' button is enabled when an
+    existing message is being edited."""
 
     def __init__(self, parent, message_text_editor_frame):
         # type: (Toplevel, MessageTextEditorFrame) -> None
+        """This constructor builds a frame containing four buttons, 'Close', 'Save' or 'Apply' and 'Validate';
+
+        :param parent: Handle to the parent window, will the top level of the MessageTextEditorFrame;
+        :param message_text_editor_frame: Handle to an instance of MessageTextEditorFrame;
+        """
         super().__init__(parent)
 
+        # Save the handle to the MessageTextEditorFrame
         self.message_text_editor_frame = message_text_editor_frame
 
         # Add the buttons
-        cancel_button = Button(self, text="Close", command=parent.destroy)
-        cancel_button.pack(side="right", anchor="ne", pady=3, padx=3)
+        close_button = Button(self, text="Close", command=parent.destroy)
+        close_button.pack(side="right", anchor="ne", pady=3, padx=3)
 
+        # The 'Save' button is added if a new message is being created
         if self.message_text_editor_frame.is_new:
             self.save_button = Button(self, text="Save", state=DISABLED,
                                       command=self.message_text_editor_frame.save_message)
@@ -76,11 +123,23 @@ class ButtonFrame(Frame):
 
 
 class MessageStatusBar(Frame):
+    """This class builds a frame containing label widgets to display some status information
+    about the message being created/edited."""
 
     def __init__(self, parent, creation_date, modification_date):
         # type: (Toplevel, str, str) -> None
+        """This constructor builds a frame containing label widgets to display some status information
+        about the message being created/edited.
+
+        :param parent: The top level window handle;
+        :param creation_date: The creation timestamp of the XML file for the message being edited, or the
+               current date and time if a new message is being created;
+        :param modification_date: The modification timestamp of the XML file for the message being edited,
+               or the current date and time if a new message is being created;
+        """
         super().__init__(parent, borderwidth=2, relief="groove")
 
+        # Create the date/time format strings
         if len(creation_date) == 0:
             creation_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         else:

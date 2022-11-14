@@ -1,14 +1,23 @@
-from tkinter import END, VERTICAL, Scrollbar, RIGHT, Y, CENTER, messagebox, BOTH, Frame, Toplevel, Button, X
+from tkinter import Tk, END, VERTICAL, Scrollbar, RIGHT, Y, CENTER, messagebox, BOTH, Frame, Toplevel, Button, X
 from tkinter.ttk import Treeview
 
 from AFTN_Terminal.ReadXml import ReadXml
 
 
 class ErsListFrame(Frame):
+    """This class builds a dialogue window to display the extracted route for a flight plan. The ERS
+    window uses a Treeview list to display the extracted route records.
+    """
 
     def __init__(self, parent, selected_path):
-        # type (Tk, str) -> None
+        # type: (Tk, str) -> None
+        """This method builds the ERS dialogue using a Frame; the dialogue window is populated with a
+        Treeview list and a frame containing a cancel button.
 
+        :param parent: Handle to the parent window;
+        :param selected_path: The path to a file for a message selected in the message list window or the main
+               application window tree view;
+        """
         # Get a handle to the top level widget
         top_level = Toplevel(parent)
         # Set a few things...
@@ -28,11 +37,22 @@ class ErsListFrame(Frame):
 
 
 class ErsList(Treeview):
+    """This method builds a Treeview list as a list used to display a flight plan extracted route sequence.
+    """
+
     selected_path = ""
+    """The path to a file for a message selected in the message list window or the main
+    application window tree view;"""
 
     def __init__(self, parent, selected_path):
         # type: (Toplevel, str) -> None
+        """This constructor builds a Treeview as a list used to display a flight plan extracted route sequence.
 
+        :param parent: Handle to the parent window;
+        :param selected_path: The path to a file for a message selected in the message list window or the main
+               application window tree view. The file contains a flight plan containing the extracted route
+               sequence to display.
+        """
         # Define columns
         columns = ('item', 'speed', 'altitude', 'bearing', 'distance', 'rules', 'break_text')
 
@@ -72,7 +92,12 @@ class ErsList(Treeview):
 
     def get_ers_records(self):
         # type: () -> bool
+        """This method retrieves the ERS records from a flight plan record and adds the ERS records
+        to 'this' Treeview list.
 
+        :return: True if the file specified by the 'selected_path' contains an extracted route sequence,
+                 False if the file did not contain an ERS.
+        """
         # Read the message file
         rx = ReadXml(self.selected_path)
 
@@ -86,9 +111,16 @@ class ErsList(Treeview):
 
 
 class ErsButtonFrame(Frame):
+    """This class creates a from containing a single 'Cancel' button to close the ErrListFrame in
+    which this frame is displayed.
+    """
 
     def __init__(self, parent):
         # type: (Toplevel) -> None
+        """This constructor adds a 'Cancel' button to 'this' Frame;
+
+        :param parent: Handle to the parent window;
+        """
         super().__init__(parent)
 
         # Add the buttons

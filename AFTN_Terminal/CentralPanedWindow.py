@@ -9,13 +9,25 @@ from AFTN_Terminal.MenuBar import MenuBar
 
 
 class CentralPanedWindow(PanedWindow):
+    """This class builds a paned window, with a movable sash, containing the tree view in the left pane
+    and the message display and list area in the right pane. The right pane, is itself a paned window
+    containing the message list in the upper pane and the message display in the lower pane separated by a
+    horizontal movable sash.
+    """
 
-    def __init__(self, parent, app_root_message_path, menu_bar):
+    def __init__(self, parent, working_directory_path, menu_bar):
         # type: (Tk, str, MenuBar) -> None
+        """This method constructs the paned window displayed in the main application window.
+
+        :param parent: Handle to the parent window;
+        :param working_directory_path: The path to the applications working directory where the
+               application stores messages crated and processed by this application;
+        :param menu_bar: Handle to the main application menu, passed to the message list frame;
+        """
         super().__init__(parent, sashrelief=RAISED, orient=HORIZONTAL)
 
         # Add a test label to the LHS of this split pane, minimum width is set
-        message_tree_frame = MessageTree(parent, app_root_message_path)
+        message_tree_frame = MessageTree(parent, working_directory_path)
         self.add(message_tree_frame, minsize=200)
 
         # Create a second split pane and add it to the RHS of this split pane

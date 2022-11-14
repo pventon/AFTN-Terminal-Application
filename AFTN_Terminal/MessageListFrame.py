@@ -12,22 +12,44 @@ from Configuration.EnumerationConstants import MessageTitles
 
 
 class MessageListFrame(Treeview):
+    """This class builds a tree view as a list to display messages in. All methods for selecting and
+    double-clicking a list entry are also implemented by this class. Right-clicking a list entry
+    displays a popup menu that is also implemented by this class.
+    """
     selected_item: str = None
+    """A tree view item that identifiers a message selected in the list;"""
+
     selected_path: str = ""
+    """The full absolute path to an XML file that represents the currently selected message;"""
+
     popup_menu: Menu = None
+    """Handle to the popup menu displayed with a right click on a message displayed in the list;"""
+
     menu_bar: MenuBar = None
+    """Handle to the main application window menu; needed to enable the 'Open' message menu item
+    depending on the current list selection, is only enabled when a message is selected;"""
+
     message_display_frame: MessageDisplayFrame = None
+    """Handle to a MessageDisplayFrame that displays a message when selected in the list. The
+    MessageDisplayFrame instance in this case is the one displayed in the main application window."""
 
     def __init__(self, parent, menu_bar):
         # type: (PanedWindow, MenuBar) -> None
+        """This class builds a tree view as a list to display messages in.
 
-        # Define columns
+        :param parent: Handle to a parent window; this will be the paned window from the main application
+               window;
+        :param menu_bar: Handle to the main application window menu; needed to enable the 'Open' message
+               menu item depending on the current list selection, is only enabled when a message is
+               selected;
+        """
+        # Define the table columns
         columns = ('priority', 'filing_time', 'title', 'callsign', 'type', 'wtc', 'adep', 'eobt', 'ades', 'field-15')
 
         # Call super init and pass the headings to it...
         super().__init__(parent, columns=columns, show='headings')
 
-        # Define headings
+        # Define the table headings
         self.heading(columns[0], text='Prio.')
         self.heading(columns[1], text='Fil. Time')
         self.heading(columns[2], text='Title')
@@ -68,45 +90,35 @@ class MessageListFrame(Treeview):
         self.bind('<Double-1>', self.on_double_click)
         self.bind('<Button-3>', self.on_right_click)
 
-    def display_ers(self):
-        ErsListFrame(self, self.selected_path)
+    def on_delete(self):
+        # type: () -> None
+        """This method is a callback bound to the popup menu 'delete message' menu item; when invoked
+        the currently selected message is deleted; a confirmation box is displayed for user confirmation.
 
-    def on_release_click(self, event):
-        # type: (Event) -> None
-
-        # Get the selected item
-        self.selected_item = self.identify('item', event.x, event.y)
-
-        # If nothing is selected, clear the message display area and bail out
-        if self.selected_item is None or len(self.selection()) == 0:
-            # Nothing selected, disable the main menu 'Open Message' item
-            self.menu_bar.set_open_message_menu_state(False)
-        else:
-            # Message selected, enable the main menu 'Open Message' item
-            self.menu_bar.set_open_message_menu_state(True)
-
-    def on_single_click(self, event):
-        # type: (Event) -> None
-
-        # Get the selected item
-        self.selected_item = self.identify('item', event.x, event.y)
-
-        # If there is no selection then bail out
-        if self.selected_item is None or len(self.selected_item) == 0:
-            return
-
-        # Store the path and filename for the currently selected message
-        self.set_selected_path()
-
-        # Display the selected message in the message display area
-        self.message_display_frame.set_message(self.selected_path)
-
-        # Pass the path and filename to the menu bar in case a message is opened from the menu
-        self.menu_bar.set_selected_path(self.selected_path)
+        :return: None
+        """
+        # The list entries should all be files, but check if it is...
+        isdir = os.path.isdir(self.selected_path)
+        if not isdir:
+            # Delete a file, display a confirmation dialogue
+            answer = askyesno("Delete Message Confirmation",
+                              "Are you sure you want to delete the Message:\n"
+                              + self.selected_path, parent=self)
+            if answer:
+                # Delete the node from the tree
+                self.delete(self.selection()[0])
 
     def on_double_click(self, event):
         # type: (Event) -> None
+        """This method highlights a selected item in the list, saves the absolute path to the XML
+        file representing the selected message, sets the text in the message display text widget,
+        enables the main application menu 'message open' menu item, reads the XML file and displays
+        the message with any associated error message in an instance of MessageTextEditorFrame text
+        editor.
 
+        :param event: Unused in this method;
+        :return: None
+        """
         # Get the selected item
         self.selected_item = self.identify('item', event.x, event.y)
 
@@ -130,9 +142,59 @@ class MessageListFrame(Treeview):
                                          rx.get_creation_time(), rx.get_modification_time(), "")
             mte.set_message(self.selected_path)
 
+    def on_ers(self):
+        # type: () -> None
+        """This method displays an extracted route sequence in a flight plan;
+
+        :return: None
+        """
+        ErsListFrame(self, self.selected_path)
+
+    def on_open_file(self):
+        # type: () -> None
+        """This method is a callback bound to the popup menu 'open message' menu item; when invoked
+        the currently selected message is displayed in a message text editor.
+
+        :return: None
+        """
+        # Read the XML file pointed to in the 'selected_path' member that was set when a message
+        # was selected in the message display list
+        rx = ReadXml(self.selected_path)
+        if rx.is_message_ok():
+            # Display the message editor
+            mtep = MessageTextEditorFrame(self, False, MessageTitles.UNKNOWN,
+                                          rx.get_creation_time(), rx.get_modification_time(), "")
+            # Pass the full path and filename to the editor
+            mtep.set_message(self.selected_path)
+
+    def on_release_click(self, event):
+        # type: (Event) -> None
+        """This method enables/disables the main application menu 'message open' menu item.
+        The main application menu 'message open' menu item is only enabled if a message is selected.
+
+        :param event: Unused in this method;
+        :return: None
+        """
+        # Get the selected item
+        self.selected_item = self.identify('item', event.x, event.y)
+
+        # If nothing is selected, clear the message display area and bail out
+        if self.selected_item is None or len(self.selection()) == 0:
+            # Nothing selected, disable the main menu 'Open Message' item
+            self.menu_bar.set_open_message_menu_state(False)
+        else:
+            # Message selected, enable the main menu 'Open Message' item
+            self.menu_bar.set_open_message_menu_state(True)
+
     def on_right_click(self, event):
         # type: (Event) -> None
+        """This method highlights a selected item in the list, saves the absolute path to the XML
+        file representing the selected message, sets the text in the message display text widget
+        and displays a popup menu to open, delete, display ERS popup menu items.
 
+        :param event: Unused in this method;
+        :return: None
+        """
         # Get the selected item
         self.selected_item = self.identify('item', event.x, event.y)
 
@@ -142,6 +204,9 @@ class MessageListFrame(Treeview):
 
         # Store the path and filename for the currently selected message
         self.set_selected_path()
+
+        # Display the selected message in the message display area
+        self.message_display_frame.set_message(self.selected_path)
 
         # Highlight the selection in the GUI that the right click occurred on
         self.selection_set(self.selected_item)
@@ -153,52 +218,63 @@ class MessageListFrame(Treeview):
             # Make sure to release the grab (Tk 8.0a1 only)
             self.popup_menu.grab_release()
 
-    def on_open_file(self):
-        # type: () -> None
-
-        rx = ReadXml(self.selected_path)
-        if rx.is_message_ok():
-            # Display the message editor
-            mtep = MessageTextEditorFrame(self, False, MessageTitles.UNKNOWN,
-                                          rx.get_creation_time(), rx.get_modification_time(), "")
-            # Pass the full path and filename to the editor
-            mtep.set_message(self.selected_path)
-
-    def on_delete(self):
-        # type: () -> None
-
-        # The list entries should all be files, but check if it is...
-        isdir = os.path.isdir(self.selected_path)
-        if not isdir:
-            # Delete a file, display a confirmation dialogue
-            answer = askyesno("Delete Message Confirmation",
-                              "Are you sure you want to delete the Message:\n"
-                              + self.selected_path, parent=self)
-            if answer:
-                # Delete the node from the tree
-                self.delete(self.selection()[0])
-
-    def popup_focus_out(self, event):
+    def on_single_click(self, event):
         # type: (Event) -> None
+        """This method highlights a selected item in the list, saves the absolute path to the XML
+        file representing the selected message, sets the text in the message display text widget
+        and enables the main application menu 'message open' menu item.
 
-        # Close the popup when it loses the focus
-        self.popup_menu.unpost()
+        :param event: Unused in this method;
+        :return: None
+        """
+        # Get the selected item
+        self.selected_item = self.identify('item', event.x, event.y)
+
+        # If there is no selection then bail out
+        if self.selected_item is None or len(self.selected_item) == 0:
+            return
+
+        # Store the path and filename for the currently selected message
+        self.set_selected_path()
+
+        # Display the selected message in the message display area
+        self.message_display_frame.set_message(self.selected_path)
+
+        # Pass the path and filename to the menu bar in case a message is opened from the menu
+        self.menu_bar.set_selected_path(self.selected_path)
 
     def popup_create(self):
         # type: () -> None
+        """This method builds the popup menu displayed when a list entry is right-clicked.
 
+        :return: None
+        """
         # Create menu
         self.popup_menu = Menu(self, tearoff=0)
         self.popup_menu.add_command(label="Open Message...", command=self.on_open_file)
         self.popup_menu.add_separator()
         self.popup_menu.add_command(label="Delete Message", command=self.on_delete)
         self.popup_menu.add_separator()
-        self.popup_menu.add_command(label="Display ERS...", command=self.display_ers)
+        self.popup_menu.add_command(label="Display ERS...", command=self.on_ers)
         self.popup_menu.bind("<FocusOut>", self.popup_focus_out)
+
+    def popup_focus_out(self, event):
+        # type: (Event) -> None
+        """This method closes the popup menu when it loses the focus when a mouse click event occurs outside
+        off the popup menu.
+
+        :return: None
+        """
+        # Close the popup when it loses the focus
+        self.popup_menu.unpost()
 
     def set_selected_path(self):
         # type: () -> None
+        """This method stores the full absolute path to an XML file for message selected in the
+        message list.
 
+        :return: None
+        """
         # Get the index where the full path for the message is stashed
         index = len(self.item(self.selected_item)["values"])
 
@@ -207,11 +283,24 @@ class MessageListFrame(Treeview):
 
     def set_message_display_frame(self, message_display_frame):
         # type: (MessageDisplayFrame) -> None
+        """This method save the instance handle to the message frame that displays this treeview list.
+
+        :param message_display_frame: Handle to an instance of MessageDisplayFrame; this will be
+               the PanedWindow displayed in the main application window.
+        :return: None
+        """
         self.message_display_frame = message_display_frame
 
     def update_list_entries(self, file_paths):
         # type: ([str]) -> None
+        """This method updates the messages displayed in the message list; The 'old' list is deleted,
+        the new list is built from the XML files contained in a specified directory that has been
+        selected in the tree view displayed in the main application window.
 
+        :param file_paths: A list of absolute file paths provided by the tree view displayed in
+               the main window when a directory containing XML files representing message is selected;
+        :return: None
+        """
         # Delete all the list entries currently on display
         for row in self.get_children():
             self.delete(row)

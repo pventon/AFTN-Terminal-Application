@@ -5,6 +5,7 @@ from tkinter import Tk, Scrollbar, Menu, Event, messagebox
 from tkinter.messagebox import showinfo, askyesno
 from tkinter.simpledialog import askstring
 from tkinter.ttk import Treeview
+
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -351,7 +352,7 @@ class MessageTree(Treeview):
         if self.dnd_source_item != "" \
                 and target_drop_item != self.dnd_source_item \
                 and self.dnd_state == 2:
-            # Save the source and destination paths so we can move the files on the OS file system
+            # Save the source and destination paths, so we can move the files on the OS file system
             source_file_path = self.item(self.dnd_source_item)['values'][0]
             destination_file_path = \
                 self.item(target_drop_item)['values'][0] + os.sep + self.item(self.dnd_source_item)['text']
@@ -619,12 +620,18 @@ class MessageTree(Treeview):
 
         :return: None
         """
+        # Currently thinking about images etc.
+        # image = Image.open("/home/ls/PycharmProjects/AFTN-Terminal-Application/Icons/Icon32/close.png")
+        # photo = ImageTk.PhotoImage(file='/home/ls/PycharmProjects/AFTN-Terminal-Application/Icons/Icon32/close.png')
         # Create menu
         self.popup_menu = Menu(self, tearoff=0)
         self.popup_menu.add_command(label="New Folder...", command=self.on_create_folder)
         self.popup_menu.add_command(label="Open Message...", command=self.on_open_file)
         self.popup_menu.add_separator()
-        self.popup_menu.add_command(label="Delete Folder", command=self.on_delete)
+        self.popup_menu.add_command(
+            label="Delete Folder",
+            # image=photo, compound='left',
+            command=self.on_delete)
         self.popup_menu.add_command(label="Delete Message", command=self.on_delete)
         self.popup_menu.bind("<FocusOut>", self.popup_focus_out)
 

@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5808083-8b4d-4cea-99e4-1d8d694e2f43" name="Changes" comment="Added an example of the extracted route window">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="a5808083-8b4d-4cea-99e4-1d8d694e2f43" name="Changes" comment="Correct a few more typos in the readme">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/ApplicationMainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/ApplicationMainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/CentralPanedWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/CentralPanedWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/ErsListFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/ErsListFrame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/MenuBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/MenuBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/MessageDisplayFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/MessageDisplayFrame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/MessageListFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/MessageListFrame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/MessageTextEditorFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/MessageTextEditorFrame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/MessageTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/MessageTree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/ReadXml.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/ReadXml.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/StatusBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/StatusBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/ToolBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/ToolBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFTN_Terminal/WriteXml.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/WriteXml.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,10 +37,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false"
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/ls/PycharmProjects/AFTN-Terminal-Application/Icons/Icon32"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Icons/Icon32" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Images" />
       <recent name="$PROJECT_DIR$" />
@@ -87,7 +103,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1668133131245</updated>
-      <workItem from="1668133132894" duration="9381000" />
+      <workItem from="1668133132894" duration="43435000" />
     </task>
     <task id="LOCAL-00001" summary="Hopefully this will release the files for the AFTN Application">
       <created>1668139210197</created>
@@ -117,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668142992079</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Correct a few more typos in the readme">
+      <created>1668143604345</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668143604345</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,10 +192,11 @@
     <MESSAGE value="Add some application screenshots in the Readme" />
     <MESSAGE value="Corrected some minor typos" />
     <MESSAGE value="Added an example of the extracted route window" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added an example of the extracted route window" />
+    <MESSAGE value="Correct a few more typos in the readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correct a few more typos in the readme" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$RunAftnTerminal.coverage" NAME="RunAftnTerminal Coverage Results" MODIFIED="1668140001054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AFTN_Terminal" />
+    <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$RunAftnTerminal.coverage" NAME="RunAftnTerminal Coverage Results" MODIFIED="1668457842138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AFTN_Terminal" />
     <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$.coverage" NAME=" Coverage Results" MODIFIED="1668133552856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UnitTests" />
   </component>
 </project>
