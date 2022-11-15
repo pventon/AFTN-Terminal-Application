@@ -13,6 +13,7 @@ from AFTN_Terminal.ReadXml import ReadXml
 from Configuration.EnumerationConstants import MessageTitles
 from AFTN_Terminal.MessageTextEditorFrame import MessageTextEditorFrame
 from AFTN_Terminal.MessageListFrame import MessageListFrame
+from PIL.ImageTk import PhotoImage
 import threading
 
 
@@ -39,6 +40,22 @@ class MessageTree(Treeview):
     dnd_source_item_parent: str = ""
     dnd_state: int = 0
 
+    icon_root_path24 = os.path.split(os.getcwd())[0] + os.sep + "Icons" + os.sep + "Icon24" + os.sep
+    """Absolute path to the Icons needed for the tree view message list"""
+
+    icon_root_path16 = os.path.split(os.getcwd())[0] + os.sep + "Icons" + os.sep + "Icon16" + os.sep
+    """Absolute path to the Icons needed for the tree view message list"""
+
+    folder_icon16 = None
+    open_doc_icon16 = None
+    trash_icon16 = None
+    inbox_icon16 = None
+    outbox_icon16 = None
+    new_folder_icon24 = None
+    open_doc_icon24 = None
+    delete_folder_icon24 = None
+    delete_doc_icon24 = None
+
     def __init__(self, parent, app_root_message_path):
         # type: (Tk, str) -> None
         """This constructor adds a scrollbar and various button event bindings to the Tkinter Treeview
@@ -48,6 +65,17 @@ class MessageTree(Treeview):
         """
         super().__init__(parent, selectmode='browse')
         self.app_root_message_path = app_root_message_path
+
+        # Create the icon images
+        self.folder_icon16 = PhotoImage(file=self.icon_root_path16 + 'folder.png')
+        self.open_doc_icon16 = PhotoImage(file=self.icon_root_path16 + 'document.png')
+        self.trash_icon16 = PhotoImage(file=self.icon_root_path16 + 'garbage_empty.png')
+        self.inbox_icon16 = PhotoImage(file=self.icon_root_path16 + 'inbox_into.png')
+        self.outbox_icon16 = PhotoImage(file=self.icon_root_path16 + 'outbox_out.png')
+        self.open_doc_icon24 = PhotoImage(file=self.icon_root_path24 + 'document.png')
+        self.new_folder_icon24 = PhotoImage(file=self.icon_root_path24 + 'folder_add.png')
+        self.delete_folder_icon24 = PhotoImage(file=self.icon_root_path24 + 'folder_delete.png')
+        self.delete_doc_icon24 = PhotoImage(file=self.icon_root_path24 + 'document_delete.png')
 
         # Add the scrollbars
         vertical = Scrollbar(self, orient=VERTICAL, command=self.yview)
@@ -59,7 +87,8 @@ class MessageTree(Treeview):
 
         # Add the tree content
         abspath = os.path.abspath(self.app_root_message_path)
-        self.root_tree_node = self.insert('', END, text=abspath, values=[abspath], open=True)
+        self.root_tree_node = self.insert('', END, text=abspath,
+                                          image=self.folder_icon16, values=[abspath], open=True)
         self.add_all_tree_nodes(self.root_tree_node, abspath)
 
         # Bind the callbacks for single and double clicks
@@ -90,7 +119,22 @@ class MessageTree(Treeview):
         for item in os.listdir(path):
             abspath = os.path.join(path, item)
             isdir = os.path.isdir(abspath)
-            oid = self.insert(tree_node, END, text=item, values=[abspath], open=False)
+            if isdir:
+                if re.fullmatch('Trash', item):
+                    oid = self.insert(tree_node, END, text=item, image=self.trash_icon16,
+                                      values=[abspath], open=False)
+                elif re.fullmatch('Inbox', item):
+                    oid = self.insert(tree_node, END, text=item, image=self.inbox_icon16,
+                                      values=[abspath], open=False)
+                elif re.fullmatch('Outbox', item):
+                    oid = self.insert(tree_node, END, text=item, image=self.outbox_icon16,
+                                      values=[abspath], open=False)
+                else:
+                    oid = self.insert(tree_node, END, text=item, image=self.folder_icon16,
+                                      values=[abspath], open=False)
+            else:
+                oid = self.insert(tree_node, END, text=item, image=self.open_doc_icon16,
+                                  values=[abspath], open=False)
             if isdir:
                 self.add_all_tree_nodes(oid, abspath)
 
@@ -136,7 +180,12 @@ class MessageTree(Treeview):
             # The new item has to inserted to this node
             if len(node_found) > 0:
                 # Add new leaf node to the treeview
-                self.insert(node_found, 'end', text=new_item, values=[new_item_path], open=False)
+                if os.path.isdir(existing_path):
+                    self.insert(node_found, 'end', image=self.folder_icon16,
+                                text=new_item, values=[new_item_path], open=False)
+                else:
+                    self.insert(node_found, 'end', image=self.open_doc_icon16,
+                                text=new_item, values=[new_item_path], open=False)
             # else:
             # There should not be an else here, if this happens, things have got really messed up;
             # It implies the file system structure changed between the file system creation event
@@ -358,10 +407,14 @@ class MessageTree(Treeview):
                 self.item(target_drop_item)['values'][0] + os.sep + self.item(self.dnd_source_item)['text']
 
             # Insert the source item into the drop target
-            self.insert(target_drop_item, END,
-                        text=self.item(self.dnd_source_item)['text'],
-                        values=self.item(self.dnd_source_item)['values'],
-                        open=True)
+            if os.path.isdir(self.dnd_source_item):
+                self.insert(target_drop_item, END, image=self.folder_icon16,
+                            text=self.item(self.dnd_source_item)['text'],
+                            values=self.item(self.dnd_source_item)['values'], open=True)
+            else:
+                self.insert(target_drop_item, END, image=self.open_doc_icon16,
+                            text=self.item(self.dnd_source_item)['text'],
+                            values=self.item(self.dnd_source_item)['values'], open=True)
             # Delete the source item
             self.delete(self.dnd_source_item)
             # Rename/move the file being dragged and dropped
@@ -452,7 +505,7 @@ class MessageTree(Treeview):
         if dir_name is not None:
             try:
                 # Add new leaf node to the tree the treeview
-                self.insert(self.selected_item, 'end', text=dir_name,
+                self.insert(self.selected_item, 'end', text=dir_name, image=self.folder_icon16,
                             values=[self.selected_path + os.sep + dir_name], open=False)
                 # Create the new folder
                 os.mkdir(self.selected_path + os.sep + dir_name)
@@ -620,19 +673,17 @@ class MessageTree(Treeview):
 
         :return: None
         """
-        # Currently thinking about images etc.
-        # image = Image.open("/home/ls/PycharmProjects/AFTN-Terminal-Application/Icons/Icon32/close.png")
-        # photo = ImageTk.PhotoImage(file='/home/ls/PycharmProjects/AFTN-Terminal-Application/Icons/Icon32/close.png')
         # Create menu
         self.popup_menu = Menu(self, tearoff=0)
-        self.popup_menu.add_command(label="New Folder...", command=self.on_create_folder)
-        self.popup_menu.add_command(label="Open Message...", command=self.on_open_file)
+        self.popup_menu.add_command(label="New Folder...", command=self.on_create_folder,
+                                    image=self.new_folder_icon24, compound='left')
+        self.popup_menu.add_command(label="Open Message...", command=self.on_open_file,
+                                    image=self.open_doc_icon24, compound='left')
         self.popup_menu.add_separator()
-        self.popup_menu.add_command(
-            label="Delete Folder",
-            # image=photo, compound='left',
-            command=self.on_delete)
-        self.popup_menu.add_command(label="Delete Message", command=self.on_delete)
+        self.popup_menu.add_command(label="Delete Folder", command=self.on_delete,
+                                    image=self.delete_folder_icon24, compound='left')
+        self.popup_menu.add_command(label="Delete Message", command=self.on_delete,
+                                    image=self.delete_doc_icon24, compound='left')
         self.popup_menu.bind("<FocusOut>", self.popup_focus_out)
 
     def popup_display(self, event, is_directory):

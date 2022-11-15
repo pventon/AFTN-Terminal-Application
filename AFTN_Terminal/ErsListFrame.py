@@ -10,7 +10,7 @@ class ErsListFrame(Frame):
     """
 
     def __init__(self, parent, selected_path):
-        # type: (Tk, str) -> None
+        # type: (Tk | Treeview | Frame, str) -> None
         """This method builds the ERS dialogue using a Frame; the dialogue window is populated with a
         Treeview list and a frame containing a cancel button.
 

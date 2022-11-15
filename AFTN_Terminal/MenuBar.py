@@ -1,8 +1,11 @@
+import os
 from tkinter import Tk, Menu, Toplevel, Button, Label, LEFT, NORMAL, DISABLED
 
+from AFTN_Terminal.About import About
 from AFTN_Terminal.ReadXml import ReadXml
 from Configuration.EnumerationConstants import MessageTitles
 from AFTN_Terminal.MessageTextEditorFrame import MessageTextEditorFrame
+from PIL.ImageTk import PhotoImage
 
 
 class MenuBar(Menu):
@@ -21,6 +24,9 @@ class MenuBar(Menu):
     working_directory_path: str = ""
     """The working directory used by this application to store messages in"""
 
+    icon_root_path = os.path.split(os.getcwd())[0] + os.sep + "Icons" + os.sep + "Icon24" + os.sep
+    """Absolute path to the Icons needed for the Menu bar"""
+
     def __init__(self, parent, working_directory_path):
         # type: (Tk, str) -> None
         """This constructor builds the main application menu displayed below the main application window title bar.
@@ -35,21 +41,43 @@ class MenuBar(Menu):
         self.parent = parent
         self.working_directory_path = working_directory_path
 
+        # Create the icon images
+        self.new_doc_icon = PhotoImage(file=self.icon_root_path + 'document_add.png')
+        self.open_doc_icon = PhotoImage(file=self.icon_root_path + 'document.png')
+        self.exit_icon = PhotoImage(file=self.icon_root_path + 'exit.png')
+        self.undo_icon = PhotoImage(file=self.icon_root_path + 'undo.png')
+        self.cut_icon = PhotoImage(file=self.icon_root_path + 'cut.png')
+        self.copy_icon = PhotoImage(file=self.icon_root_path + 'copy.png')
+        self.paste_icon = PhotoImage(file=self.icon_root_path + 'paste.png')
+        self.about_icon = PhotoImage(file=self.icon_root_path + 'about.png')
+
         # Create and add the file menu
         self.message_menu = Menu(self, tearoff=0)
-        self.message_menu.add_cascade(label="New Message...", menu=self.create_new_submenu())
-        self.message_menu.add_command(label="Open Selected Message...", command=self.open_message_text_editor)
+        # Add new message
+        self.message_menu.add_cascade(
+            label="New Message...", menu=self.create_new_submenu(), image=self.new_doc_icon, compound='left')
+        # Open currently selected message
+        self.message_menu.add_command(
+            label="Open Selected Message...",
+            command=self.open_message_text_editor, image=self.open_doc_icon, compound='left')
+        # Exit application
         self.message_menu.add_separator()
-        self.message_menu.add_command(label="Exit", command=self.parent.destroy)
+        self.message_menu.add_command(
+            label="Exit Application", command=self.parent.destroy, image=self.exit_icon, compound='left')
         self.add_cascade(label="Message", menu=self.message_menu)
 
         # Create and add the edit menu
         edit_menu = Menu(self, tearoff=0)
-        edit_menu.add_command(label="Undo", accelerator="Ctrl+Z", command=lambda: self.event_generate('<Control-z>'))
+        edit_menu.add_command(label=" Undo", accelerator="Ctrl+Z", image=self.undo_icon,
+                              compound='left', command=lambda: self.event_generate('<Control-z>'))
         edit_menu.add_separator()
-        edit_menu.add_command(label="Cut", accelerator="Ctrl+X", command=lambda: self.event_generate('<Control-x>'))
-        edit_menu.add_command(label="Copy", accelerator="Ctrl+C", command=lambda: self.event_generate('<Control-c>'))
-        edit_menu.add_command(label="Paste", accelerator="Ctrl+V", command=lambda: self.event_generate('<Control-v>'))
+        edit_menu.add_command(label=" Cut", accelerator="Ctrl+X", image=self.cut_icon,
+                              compound='left', command=lambda: self.event_generate('<Control-x>'))
+        edit_menu.add_command(label=" Copy", accelerator="Ctrl+C", image=self.copy_icon,
+                              compound='left', command=lambda: self.event_generate('<Control-c>'))
+        edit_menu.add_command(label=" Paste", accelerator="Ctrl+V", image=self.paste_icon,
+                              compound='left', command=lambda: self.event_generate('<Control-v>'))
+        edit_menu.add_separator()
         edit_menu.add_command(label="Delete", command=self.do_nothing)
         edit_menu.add_command(label="Select All", accelerator="Ctrl+A",
                               command=lambda: self.event_generate('<Control-a>'))
@@ -57,8 +85,7 @@ class MenuBar(Menu):
 
         # Create and add the help menu
         help_menu = Menu(self, tearoff=0)
-        help_menu.add_command(label="Help Index", command=self.do_nothing)
-        help_menu.add_command(label="About...", command=self.about)
+        help_menu.add_command(label="About...", command=self.about, image=self.about_icon, compound='left')
         self.add_cascade(label="Help", menu=help_menu)
 
         # Set the initial menu states
@@ -313,15 +340,7 @@ class MenuBar(Menu):
 
         :return: None
         """
-        top_level = Toplevel(self.parent)
-        label = Label(top_level, font="Arial, 11", justify=LEFT, padx=10, pady=10,
-                      text="AFTN Terminal Application;\n"
-                           "Version: 1.0\n"
-                           "Release Date: December 2022\n"
-                           "Author: Peter Venton\n"
-                           "Software: Python 3.8.10\n"
-                           "License: GPL")
-        label.pack()
+        About(self.parent)
 
     def set_open_message_menu_state(self, state):
         # type: (bool) -> None

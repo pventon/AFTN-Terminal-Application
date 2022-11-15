@@ -33,8 +33,11 @@ All ICAO defined ATS messages are supported and templates for all supported mess
 </p>
 
 <h2>Current Limitations</h2>
-<p>10th November 2022 - This release is the first release; there is very limited documentation available and many of the source files have not been fully commented as of this initial release.
+<p>15th November 2022 - The source code is now fully documented;
 </p>
+<p>15th November 2022 - The Toolbar buttons have been added with supported functionality apart from the print and search buttons.
+</p>
+<p>15th November 2022 - Currently, the AFTN interface and associated protocol handler have not yet been implemented; this will be provided in a future release.</p>
 <h2>Future Upgrades</h2>
 <p>The following have yet to be provided:
 </p>

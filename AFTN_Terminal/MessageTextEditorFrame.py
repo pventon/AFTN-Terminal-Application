@@ -17,7 +17,7 @@ class MessageTextEditorFrame(MessageDisplayFrame):
     an existing message (False)."""
 
     def __init__(self, parent, is_new, message_title, creation_date, modification_date, app_root_message_path):
-        # type: (Tk | Treeview, bool, MessageTitles, str, str, str) -> None
+        # type: (Tk | Treeview | Frame, bool, MessageTitles, str, str, str) -> None
         """This constructor builds a message text editor with the text editor and error messages provided
         by the base class MessageDisplayFrame; this constructor adds a status and button bar that displays
         either a 'Apply' or 'Save' button depending on if an existing message is being edited or

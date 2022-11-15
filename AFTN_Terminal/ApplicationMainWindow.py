@@ -75,11 +75,11 @@ class ApplicationMainWindow:
         menu_bar = MenuBar(self.root, self.working_directory_path)
 
         # Add row 0, the toolbar
-        ToolBar(self.root)
+        tool_bar = ToolBar(self.root, self.working_directory_path)
 
         # Add row 1, the frame containing a message tree view, a list of messages and a message
         # display area with a list of errors associated to a message on display
-        middle_frame = CentralPanedWindow(self.root, self.working_directory_path, menu_bar)
+        middle_frame = CentralPanedWindow(self.root, self.working_directory_path, menu_bar, tool_bar)
         middle_frame.grid(column=0, row=1, sticky=N + E + W + S)
 
         # Add row 2, the status bar at the bottom

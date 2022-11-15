@@ -6,9 +6,11 @@ from tkinter.ttk import Treeview
 from AFTN_Terminal.ErsListFrame import ErsListFrame
 from AFTN_Terminal.ReadXml import ReadXml
 from AFTN_Terminal.MenuBar import MenuBar
+from AFTN_Terminal.ToolBar import ToolBar
 from AFTN_Terminal.MessageDisplayFrame import MessageDisplayFrame
 from AFTN_Terminal.MessageTextEditorFrame import MessageTextEditorFrame
 from Configuration.EnumerationConstants import MessageTitles
+from PIL.ImageTk import PhotoImage
 
 
 class MessageListFrame(Treeview):
@@ -29,12 +31,28 @@ class MessageListFrame(Treeview):
     """Handle to the main application window menu; needed to enable the 'Open' message menu item
     depending on the current list selection, is only enabled when a message is selected;"""
 
+    tool_bar: ToolBar = None
+    """Handle to the main application window toolbar; needed to enable the message toolbar buttons
+    depending on the current list selection, message buttons are only enabled when a message is selected;"""
+
     message_display_frame: MessageDisplayFrame = None
     """Handle to a MessageDisplayFrame that displays a message when selected in the list. The
     MessageDisplayFrame instance in this case is the one displayed in the main application window."""
 
-    def __init__(self, parent, menu_bar):
-        # type: (PanedWindow, MenuBar) -> None
+    icon_root_path = os.path.split(os.getcwd())[0] + os.sep + "Icons" + os.sep + "Icon24" + os.sep
+    """Absolute path to the Icons needed for the tree view message list"""
+
+    open_doc_icon = None
+    """Handle to the icon for the 'Open Document' popup menu item"""
+
+    delete_doc_icon = None
+    """Handle to the icon for the 'Delete Document' popup menu item"""
+
+    ers_icon = None
+    """Handle to the icon for the 'ERS Document' popup menu item"""
+
+    def __init__(self, parent, menu_bar, tool_bar):
+        # type: (PanedWindow, MenuBar, ToolBar) -> None
         """This class builds a tree view as a list to display messages in.
 
         :param parent: Handle to a parent window; this will be the paned window from the main application
@@ -42,6 +60,9 @@ class MessageListFrame(Treeview):
         :param menu_bar: Handle to the main application window menu; needed to enable the 'Open' message
                menu item depending on the current list selection, is only enabled when a message is
                selected;
+        :param tool_bar: Handle to the main application toolbar, needed to enable the message
+               toolbar buttons depending on the current list selection, message buttons are only enabled
+               when a message is selected;
         """
         # Define the table columns
         columns = ('priority', 'filing_time', 'title', 'callsign', 'type', 'wtc', 'adep', 'eobt', 'ades', 'field-15')
@@ -76,8 +97,11 @@ class MessageListFrame(Treeview):
         # Create the list popup
         self.popup_create()
 
-        # Handle to the menu bar
+        # Save a handle to the menu bar
         self.menu_bar = menu_bar
+
+        # Save a handle to the toolbar
+        self.tool_bar = tool_bar
 
         # Add a scrollbar
         vertical = Scrollbar(self, orient=VERTICAL, command=self.yview)
@@ -102,7 +126,7 @@ class MessageListFrame(Treeview):
         if not isdir:
             # Delete a file, display a confirmation dialogue
             answer = askyesno("Delete Message Confirmation",
-                              "Are you sure you want to delete the Message:\n"
+                              "Are you sure you want to delete the Message:" + os.linesep
                               + self.selected_path, parent=self)
             if answer:
                 # Delete the node from the tree
@@ -116,7 +140,7 @@ class MessageListFrame(Treeview):
         the message with any associated error message in an instance of MessageTextEditorFrame text
         editor.
 
-        :param event: Unused in this method;
+        :param event: Provides x, y coordinates to identify the selected list item;
         :return: None
         """
         # Get the selected item
@@ -134,6 +158,7 @@ class MessageListFrame(Treeview):
 
         # Pass the path and filename to the menu bar in case a message is opened from the menu
         self.menu_bar.set_selected_path(self.selected_path)
+        self.tool_bar.set_selected_path(self.selected_path)
 
         # Open the message editor with the selected message
         rx = ReadXml(self.selected_path)
@@ -182,9 +207,11 @@ class MessageListFrame(Treeview):
         if self.selected_item is None or len(self.selection()) == 0:
             # Nothing selected, disable the main menu 'Open Message' item
             self.menu_bar.set_open_message_menu_state(False)
+            self.tool_bar.set_message_buttons_state(False)
         else:
             # Message selected, enable the main menu 'Open Message' item
             self.menu_bar.set_open_message_menu_state(True)
+            self.tool_bar.set_message_buttons_state(True)
 
     def on_right_click(self, event):
         # type: (Event) -> None
@@ -242,6 +269,7 @@ class MessageListFrame(Treeview):
 
         # Pass the path and filename to the menu bar in case a message is opened from the menu
         self.menu_bar.set_selected_path(self.selected_path)
+        self.tool_bar.set_selected_path(self.selected_path)
 
     def popup_create(self):
         # type: () -> None
@@ -251,11 +279,18 @@ class MessageListFrame(Treeview):
         """
         # Create menu
         self.popup_menu = Menu(self, tearoff=0)
-        self.popup_menu.add_command(label="Open Message...", command=self.on_open_file)
+        self.open_doc_icon = PhotoImage(file=self.icon_root_path + 'document.png')
+        self.popup_menu.add_command(label="Open Message...", image=self.open_doc_icon,
+                                    compound='left', command=self.on_open_file)
+
+        self.delete_doc_icon = PhotoImage(file=self.icon_root_path + 'document_delete.png')
+        self.popup_menu.add_command(label="Delete Message", image=self.delete_doc_icon,
+                                    compound='left', command=self.on_delete)
+
         self.popup_menu.add_separator()
-        self.popup_menu.add_command(label="Delete Message", command=self.on_delete)
-        self.popup_menu.add_separator()
-        self.popup_menu.add_command(label="Display ERS...", command=self.on_ers)
+        self.ers_icon = PhotoImage(file=self.icon_root_path + 'document_info.png')
+        self.popup_menu.add_command(label="Display ERS...", image=self.ers_icon,
+                                    compound='left', command=self.on_ers)
         self.popup_menu.bind("<FocusOut>", self.popup_focus_out)
 
     def popup_focus_out(self, event):
@@ -309,6 +344,7 @@ class MessageListFrame(Treeview):
         if len(file_paths) == 0:
             self.message_display_frame.set_message("")
             self.menu_bar.set_open_message_menu_state(False)
+            self.tool_bar.set_message_buttons_state(False)
             return
 
         # Loop over the list of tree child nodes and add the message
