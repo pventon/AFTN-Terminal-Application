@@ -1,7 +1,7 @@
 # AFTN Terminal Application
 <p>This <a href="https://github.com/">GitHub</a> repository contains an <b>AFTN Terminal Application</b>; this application is a standalone client that runs as a GUI application. The application is cross-platform compatible running on both Linux, Mac OSX and Windows platforms.
 </p>
-<p>The <b>AFTN Terminal Application</b> is implemented using Python version 3.10.7. A more recent version of Python must be used in order to support <b>switch</b> statements used in the source code.
+<p>The <b>AFTN Terminal Application</b> is implemented using Python version 3.10.7. A more recent version of Python must be used in order to support <b>switch</b> (Python <b>match</b>) statements used in the source code.
 The GUI has been written using the Tkinter library.
 </p>
 <p>An acronym list is provided at the end of this readme for readers unfamiliar with ATC acronyms.
@@ -42,10 +42,8 @@ All ICAO defined ATS messages are supported and templates for all supported mess
 <p>The following have yet to be provided:
 </p>
 <ul>
-<li>This readme has to be updated</li>
+<li>A TCP/IP protocol handler has to be provided that complies with ICAO Annex 10, Vol II in order to provide an AFTN network interface for the application;</li>
 <li>Full documentation has to be provided, this includes a User Manual</li>
-<li>A comprehensive toolbar has to be implemented, (the toolbar is present but empty)</li>
-<li>Last but not least, the application needs to have an AFTN network interface protocol handler written</li>
 </ul>
 <h2>Errata and Faults</h2>
 <p>Although every attempt has been made to reduce the number of software coding errors and resulting chaos that can ensue as a result of such errors, it is highly likely that this early release will have a few bugs. Substantial testing has been carried out on the GUI, but even with so many tests, there may still be some bugs in the software.
