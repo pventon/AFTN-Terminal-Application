@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5808083-8b4d-4cea-99e4-1d8d694e2f43" name="Changes" comment="Added buttons to the toolbar with associated functionality;&#10;Added icons to the application buttons, menu items and tree view">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a5808083-8b4d-4cea-99e4-1d8d694e2f43" name="Changes" comment="Added buttons to the toolbar with associated functionality;&#10;Updated the README to reflect the latest and greatest">
       <change beforePath="$PROJECT_DIR$/AFTN_Terminal/MessageListFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFTN_Terminal/MessageListFrame.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -174,7 +173,7 @@
       <option name="presentableId" value="Default" />
       <updated>1668133131245</updated>
       <workItem from="1668133132894" duration="108935000" />
-      <workItem from="1669139567615" duration="1031000" />
+      <workItem from="1669139567615" duration="5245000" />
     </task>
     <task id="LOCAL-00001" summary="Hopefully this will release the files for the AFTN Application">
       <created>1668139210197</created>
@@ -232,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668541335303</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added buttons to the toolbar with associated functionality;&#10;Updated the README to reflect the latest and greatest">
+      <created>1669151065632</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1669151065632</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,11 +293,12 @@
     <MESSAGE value="Correct a few more typos in the readme" />
     <MESSAGE value="Added source code documentation to all source files" />
     <MESSAGE value="Added buttons to the toolbar with associated functionality;&#10;Added icons to the application buttons, menu items and tree view" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added buttons to the toolbar with associated functionality;&#10;Added icons to the application buttons, menu items and tree view" />
+    <MESSAGE value="Added buttons to the toolbar with associated functionality;&#10;Updated the README to reflect the latest and greatest" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added buttons to the toolbar with associated functionality;&#10;Updated the README to reflect the latest and greatest" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$Client.coverage" NAME="Client Coverage Results" MODIFIED="1668572141443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Network" />
-    <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$RunAftnTerminal.coverage" NAME="RunAftnTerminal Coverage Results" MODIFIED="1669139569007" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AFTN_Terminal" />
+    <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$RunAftnTerminal.coverage" NAME="RunAftnTerminal Coverage Results" MODIFIED="1669559519333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/AFTN_Terminal" />
     <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$Server.coverage" NAME="Server Coverage Results" MODIFIED="1668711217766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Network" />
     <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$ReadTestMessages.coverage" NAME="ReadTestMessages Coverage Results" MODIFIED="1668968037363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Network" />
     <SUITE FILE_PATH="coverage/AFTN_Terminal_Application$.coverage" NAME=" Coverage Results" MODIFIED="1668133552856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UnitTests" />

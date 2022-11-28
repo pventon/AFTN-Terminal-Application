@@ -10,8 +10,10 @@ The GUI has been written using the Tkinter library.
 </p>
 <p>All software for the <b>AFTN Terminal Application</b>, <b>ICAO ATS and OLDI Message Parser</b> and <b>ICAO Field 15 Parser</b> <a href="https://github.com/">GitHub</a> repositories have been written by Peter Venton (user <a href="https://github.com/pventon">pventon</a> on <a href="https://github.com/">GitHub</a>).
 </p>
-<p>All development has been carried out on a Linux Mint platform and has <b><i>NOT</i></b> been tested on either Windows or Mac OSX platforms. The software has been written with cross-platform support in mind.</p>
-
+<p>The project has been built using the <a href="https://www.jetbrains.com/pycharm/">PyCharm 2022.2.2</a> (Professional Edition) IDE running on a <a href="https://www.linuxmint.com">Linux Mint</a> OS. Installing Python 3.x and the <a href="https://www.jetbrains.com/pycharm/">PyCharm IDE</a> was straightforward with everything working as expected. Please donate and support <a href="https://www.linuxmint.com">Linux Mint</a> if your able to do so, its a great OS!
+</p>
+<p>All development has been carried out on a Linux Mint platform and has <b><i>NOT</i></b> been tested on either Windows or Mac OSX platforms. The software has been written with cross-platform support in mind.
+</p>
 <h1>Overview</h1>
 <p>The <b>AFTN Terminal Application</b> processes ICAO ATS messages. The application is structured similar to an email client with a message tree in a left pane for organising messages, a list of messages when a message folder is selected in the tree pane and a message display area that contains the content of a selected message along with any associated error messages.
 </p>
